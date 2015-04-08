@@ -17,7 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 /**
- *
  * @author Beau Marwaha
  */
 public class window extends JPanel implements ActionListener {
@@ -42,6 +41,10 @@ public class window extends JPanel implements ActionListener {
 
         }
         
+        paddleLeft = new paddleLeft();
+        paddleRight = new paddleRight();
+        ball = new ball();
+        
         timer = new Timer(0, this);
         timer.start();
     }
@@ -56,13 +59,33 @@ public class window extends JPanel implements ActionListener {
             g2d.drawImage(paddleRight.getImage(), paddleRight.getX(), paddleRight.getY(), this);
             g2d.drawImage(ball.getImage(), ball.getX(), ball.getY(), this);
             
+            //restricts the left paddles movement
+            if(paddleLeft.getY() < 0){
+                paddleLeft.setY(0); 
+            }
+            if(paddleLeft.getY() > 400){
+                paddleLeft.setY(400); 
+            }
+            
+            //restricts the right paddles movement
+            if(paddleRight.getY() < 0){
+                paddleRight.setY(0); 
+            }
+            if(paddleRight.getY() > 400){
+                paddleRight.setY(400); 
+            }
+            
             Toolkit.getDefaultToolkit().sync();
             g.dispose();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        paddleLeft.move();
+        paddleRight.move();
+        ball.move();
         
+        repaint();  
     }
     
     private class TAdapter extends KeyAdapter {

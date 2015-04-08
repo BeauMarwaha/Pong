@@ -14,8 +14,10 @@ import javax.swing.JFrame;
 public class Pong extends JFrame {
     
     public Pong() {
+        //creates the window object 
         add(new window());
-
+        
+        //customizes the window object made above
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1000, 700);
         setLocationRelativeTo(null);

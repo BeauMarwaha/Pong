@@ -5,7 +5,6 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 /**
- *
  * @author Beau Marwaha
  */
 public class ball {
@@ -15,9 +14,13 @@ public class ball {
     private int dy;
     private int x;
     private int y;
-    private final ImageIcon II = new ImageIcon(this.getClass().getResource("images/stance.gif"));
+    private final ImageIcon II = 
+            new ImageIcon(this.getClass().getResource("images/ball.png"));
     private final Image IMAGE = II.getImage();
     
+    /**
+     * Standard ball object with default values
+     */
     public ball() {
         x = 300;
         y = 300;
@@ -25,6 +28,10 @@ public class ball {
         dy = 0;
     }
     
+    /**
+     * Changes the y and x value by dy and dx allowing 
+     * the paddle to move onscreen
+    */
     public void move() {
         x += dx;
         y += dy;
