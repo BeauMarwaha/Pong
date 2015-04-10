@@ -9,7 +9,9 @@ import javax.swing.JFrame;
 
 /**
  * TO DO:
- * 
+ * change so no lag between button pushes for up and down
+ * scoring and scoring on screen
+ * directions for game
  */
 public class Pong extends JFrame {
     
@@ -19,7 +21,7 @@ public class Pong extends JFrame {
         
         //customizes the window object made above
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1000, 700);
+        setSize(1200, 800);
         setLocationRelativeTo(null);
         setTitle("Pong");
         setResizable(false);

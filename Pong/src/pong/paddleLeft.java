@@ -55,6 +55,14 @@ public class paddleLeft {
         return IMAGE;
     }
     
+    public int getWidth() {
+        return IMAGE.getWidth(null);
+    }
+    
+    public int getHeight() {
+        return IMAGE.getHeight(null);
+    }
+    
     /**
      * Handles certain key presses made by the user
      */
@@ -63,24 +71,13 @@ public class paddleLeft {
         
         //Moves the paddle down
         if (key == KeyEvent.VK_W) {
-            if(y > 0){
-                dy = -2;
-            }else{
-                y = 0;
-                dy = 0;
-            }
-
+            dy = -4;
         }
 
         //Moves the paddle up
         if (key == KeyEvent.VK_S) {
-            if(y < 700){
-                dy = 2;
-            }else{
-                y = 570;
-                dy = 0;
-            }
-        }
+            dy = 4;
+        }    
     }
     
     /**

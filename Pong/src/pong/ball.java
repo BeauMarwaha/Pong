@@ -10,8 +10,8 @@ import javax.swing.ImageIcon;
 public class ball {
     
     
-    private int dx;
-    private int dy;
+    private double dx;
+    private double dy;
     private int x;
     private int y;
     private final ImageIcon II = 
@@ -22,10 +22,10 @@ public class ball {
      * Standard ball object with default values
      */
     public ball() {
-        x = 300;
-        y = 300;
-        dx = 0;
-        dy = 0;
+        x = 600;
+        y = 350;
+        dx = -6;
+        dy = 6;
     }
     
     /**
@@ -63,5 +63,13 @@ public class ball {
     
     public Image getImage() {
         return IMAGE;
+    }
+    
+    public int getWidth() {
+        return IMAGE.getWidth(null);
+    }
+    
+    public int getHeight() {
+        return IMAGE.getHeight(null);
     }
 }

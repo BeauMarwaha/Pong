@@ -20,7 +20,7 @@ public class paddleRight {
      * Standard paddle object with default values
      */
     public paddleRight() {
-        x = 900;
+        x = 1130;
         y = 300;
     }
     
@@ -55,6 +55,14 @@ public class paddleRight {
         return IMAGE;
     }
     
+    public int getWidth() {
+        return IMAGE.getWidth(null);
+    }
+    
+    public int getHeight() {
+        return IMAGE.getHeight(null);
+    }
+    
     /**
      * Handles certain key presses made by the user
      */
@@ -63,22 +71,12 @@ public class paddleRight {
 
         //Moves the paddle down
         if(key == KeyEvent.VK_UP){
-            if(y > 0){
-                dy = -2;
-            }else{
-                y = 0;
-                dy = 0;
-            }
+            dy = -4;
         }
 
         //Moves the paddle up
         if(key == KeyEvent.VK_DOWN){
-            if(y < 700){
-                dy = 2;
-            }else{
-                y = 570;
-                dy = 0;
-            }
+            dy = 4;
         }
     }
  

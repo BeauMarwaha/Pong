@@ -4,6 +4,7 @@ package pong;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,6 +28,9 @@ public class window extends JPanel implements ActionListener {
     private paddleLeft paddleLeft;
     private paddleRight paddleRight;
     private ball ball;
+    
+    private int leftPoints = 0;
+    private int rightPoints = 0;
    
     public window() {
         
@@ -36,7 +40,7 @@ public class window extends JPanel implements ActionListener {
         setDoubleBuffered(true);
         
         try {                
-           image = ImageIO.read(new File("src\\pong\\images\\back.jpg"));
+           image = ImageIO.read(new File("src\\pong\\images\\back.png"));
         } catch (IOException ex) {
 
         }
@@ -62,17 +66,15 @@ public class window extends JPanel implements ActionListener {
             //restricts the left paddles movement
             if(paddleLeft.getY() < 0){
                 paddleLeft.setY(0); 
-            }
-            if(paddleLeft.getY() > 400){
-                paddleLeft.setY(400); 
+            }else if(paddleLeft.getY() > 675){
+                paddleLeft.setY(675); 
             }
             
             //restricts the right paddles movement
             if(paddleRight.getY() < 0){
                 paddleRight.setY(0); 
-            }
-            if(paddleRight.getY() > 400){
-                paddleRight.setY(400); 
+            }else if(paddleRight.getY() > 675){
+                paddleRight.setY(675); 
             }
             
             Toolkit.getDefaultToolkit().sync();
@@ -84,6 +86,38 @@ public class window extends JPanel implements ActionListener {
         paddleLeft.move();
         paddleRight.move();
         ball.move();
+        
+        //These rectangles represent the current locations of the three objects
+        Rectangle rectanglePaddleL = new Rectangle(paddleLeft.getX(), paddleLeft.getY(), paddleLeft.getWidth(), paddleLeft.getHeight());
+        Rectangle rectanglePaddleR = new Rectangle(paddleRight.getX(), paddleRight.getY(), paddleRight.getWidth(), paddleRight.getHeight());
+        Rectangle rectangleball = new Rectangle(ball.getX(), ball.getY(), ball.getWidth(), ball.getHeight());
+        
+        //This section handles paddle and ball collision
+        if(rectanglePaddleL.intersects(rectangleball)){
+            ball.setdx(6);
+        }else if(rectanglePaddleR.intersects(rectangleball)){
+            ball.setdx(-6);
+        }
+        
+        //This section handles scoring
+        if(ball.getX() < 0){
+            ball.setdx(6);
+//            ball.setX(600);
+//            ball.setY(350);  
+//            rightPoints += 1;
+        }else if(ball.getX() > 1175){
+            ball.setdx(-6);
+//            ball.setX(600);
+//            ball.setY(350); 
+//            leftPoints += 1;
+        }
+        
+        //This section handles bouncing off the top and bottom of the screen
+        if(ball.getY() < 0){
+            ball.setdy(6);
+        }else if(ball.getY() > 750){
+            ball.setdy(-6);
+        }
         
         repaint();  
     }
