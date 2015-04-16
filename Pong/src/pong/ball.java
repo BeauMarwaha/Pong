@@ -14,6 +14,7 @@ public class ball {
     private double dy;
     private int x;
     private int y;
+    private int speed;
     private final ImageIcon II = 
             new ImageIcon(this.getClass().getResource("images/ball.png"));
     private final Image IMAGE = II.getImage();
@@ -24,8 +25,9 @@ public class ball {
     public ball() {
         x = 600;
         y = 350;
-        dx = -6;
-        dy = 6;
+        speed = 3;
+        dx = -speed;
+        dy = speed;
     }
     
     /**
@@ -63,6 +65,14 @@ public class ball {
     
     public Image getImage() {
         return IMAGE;
+    }
+    
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+    
+    public int getSpeed() {
+        return speed;
     }
     
     public int getWidth() {

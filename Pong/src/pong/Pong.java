@@ -2,6 +2,7 @@
 package pong;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  * @author Beau Marwaha
@@ -10,8 +11,6 @@ import javax.swing.JFrame;
 /**
  * TO DO:
  * change so no lag between button pushes for up and down
- * scoring and scoring on screen
- * directions for game
  */
 public class Pong extends JFrame {
     
@@ -29,6 +28,9 @@ public class Pong extends JFrame {
     }
     
     public static void main(String[] args) {
+        JOptionPane.showMessageDialog(null, "Welcome to Pong. \n"
+                                        + "Left Side use W and S to move up and down. \n" 
+                                        + "Right Side use the UP and DOWN arrows to move up and down. \n");
         new Pong();
     }
     

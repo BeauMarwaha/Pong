@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -22,12 +23,14 @@ import javax.swing.Timer;
  */
 public class window extends JPanel implements ActionListener {
     
-    private Timer timer;
+    final private Timer timer;
     private BufferedImage image;
+    private BufferedImage leftScoreImage;
+    private BufferedImage rightScoreImage;
     
-    private paddleLeft paddleLeft;
-    private paddleRight paddleRight;
-    private ball ball;
+    final private paddleLeft paddleLeft;
+    final private paddleRight paddleRight;
+    final private ball ball;
     
     private int leftPoints = 0;
     private int rightPoints = 0;
@@ -41,9 +44,15 @@ public class window extends JPanel implements ActionListener {
         
         try {                
            image = ImageIO.read(new File("src\\pong\\images\\back.png"));
-        } catch (IOException ex) {
-
-        }
+        } catch (IOException ex) {}
+        
+        try {                
+            leftScoreImage = ImageIO.read(new File("src\\pong\\images\\0.png"));
+        } catch (IOException ex) {}
+        
+        try {                
+            rightScoreImage = ImageIO.read(new File("src\\pong\\images\\0.png"));
+        } catch (IOException ex) {}
         
         paddleLeft = new paddleLeft();
         paddleRight = new paddleRight();
@@ -58,10 +67,23 @@ public class window extends JPanel implements ActionListener {
             super.paint(g);
             Graphics2D g2d = (Graphics2D)g;
 
+            //Paints the background of the screen
             g.drawImage(image, 0, 0, null);
+            
+            //Paints the objects on the screen
             g2d.drawImage(paddleLeft.getImage(), paddleLeft.getX(), paddleLeft.getY(), this);
             g2d.drawImage(paddleRight.getImage(), paddleRight.getX(), paddleRight.getY(), this);
             g2d.drawImage(ball.getImage(), ball.getX(), ball.getY(), this);
+            
+            //Paints the score on the screen
+            try {                
+                leftScoreImage = ImageIO.read(new File("src\\pong\\images\\"+leftPoints+".png"));
+            } catch (IOException ex) {}
+            try {                
+                rightScoreImage = ImageIO.read(new File("src\\pong\\images\\"+rightPoints+".png"));
+            } catch (IOException ex) {}
+            g2d.drawImage(leftScoreImage, 300, 100, this);
+            g2d.drawImage(rightScoreImage, 900, 100, this);
             
             //restricts the left paddles movement
             if(paddleLeft.getY() < 0){
@@ -94,31 +116,47 @@ public class window extends JPanel implements ActionListener {
         
         //This section handles paddle and ball collision
         if(rectanglePaddleL.intersects(rectangleball)){
-            ball.setdx(6);
+            ball.setdx(ball.getSpeed());
+            ball.setSpeed(ball.getSpeed() + 1);
         }else if(rectanglePaddleR.intersects(rectangleball)){
-            ball.setdx(-6);
+            ball.setdx(-ball.getSpeed());
+            ball.setSpeed(ball.getSpeed() + 1);
         }
         
         //This section handles scoring
         if(ball.getX() < 0){
-            ball.setdx(6);
-//            ball.setX(600);
-//            ball.setY(350);  
-//            rightPoints += 1;
+            ball.setSpeed(3);
+            ball.setdx(ball.getSpeed());
+            ball.setdy(ball.getSpeed());
+            ball.setX(600);
+            ball.setY(350);  
+            rightPoints += 1;
+            if(rightPoints > 9){
+                JOptionPane.showMessageDialog(null, "Right Side Wins! \n"
+                                                + "Final Score: " + rightPoints + " to " + leftPoints + ".");
+                System.exit(0);
+            }
         }else if(ball.getX() > 1175){
-            ball.setdx(-6);
-//            ball.setX(600);
-//            ball.setY(350); 
-//            leftPoints += 1;
+            ball.setSpeed(3);
+            ball.setdx(-ball.getSpeed());
+            ball.setdy(-ball.getSpeed());
+            ball.setX(600);
+            ball.setY(350); 
+            leftPoints += 1;
+            if(leftPoints > 9){
+                JOptionPane.showMessageDialog(null, "Left Side Wins! \n"
+                                                + "Final Score: " + leftPoints + " to " + rightPoints + ".");
+                System.exit(0);
+            }
         }
         
         //This section handles bouncing off the top and bottom of the screen
         if(ball.getY() < 0){
-            ball.setdy(6);
+            ball.setdy(ball.getSpeed());
         }else if(ball.getY() > 750){
-            ball.setdy(-6);
+            ball.setdy(-ball.getSpeed());
         }
-        
+        System.out.println("speed " + ball.getSpeed());
         repaint();  
     }
     
