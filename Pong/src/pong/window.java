@@ -156,7 +156,7 @@ public class window extends JPanel implements ActionListener {
         }else if(ball.getY() > 750){
             ball.setdy(-ball.getSpeed());
         }
-        System.out.println("speed " + ball.getSpeed());
+        //System.out.println("speed " + ball.getSpeed());
         repaint();  
     }
     

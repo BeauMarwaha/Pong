@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 /**
  * TO DO:
- * change so no lag between button pushes for up and down
+ * 
  */
 public class Pong extends JFrame {
     

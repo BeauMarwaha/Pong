@@ -15,6 +15,9 @@ public class paddleRight {
     private int y;
     private final ImageIcon II = new ImageIcon(this.getClass().getResource("images/paddle.png"));
     private final Image IMAGE = II.getImage();
+    //use of booleans with movement prevents lag when instantly switching directions
+    private boolean up = false;
+    private boolean down = false;
     
     /**
      * Standard paddle object with default values
@@ -28,6 +31,12 @@ public class paddleRight {
      * Changes the y value by dy allowing the paddle to move onscreen
      */
     public void move() {
+        if(up){
+            dy = -4;
+        }
+        if(down){
+            dy = 4;
+        }
         y += dy;
     }
 
@@ -69,14 +78,14 @@ public class paddleRight {
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
 
-        //Moves the paddle down
+        //Moves the paddle up
         if(key == KeyEvent.VK_UP){
-            dy = -4;
+            up = true;
         }
 
-        //Moves the paddle up
+        //Moves the paddle down
         if(key == KeyEvent.VK_DOWN){
-            dy = 4;
+            down = true;
         }
     }
  
@@ -88,11 +97,13 @@ public class paddleRight {
 
         //Stops paddle movement
         if (key == KeyEvent.VK_UP) {
+            up = false;
             dy = 0;
         }
 
         //Stops paddle movement
         if (key == KeyEvent.VK_DOWN) {
+            down = false;
             dy = 0;
         }
     }
